@@ -9,9 +9,9 @@
         <Filename Value="rc2po.dpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="44"/>
+        <TopLine Value="37"/>
         <CursorPos Y="58"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit0>
@@ -33,15 +33,4 @@
       </Modes>
     </RunParams>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="rc2po.dpr"/>
-        <Line Value="58"/>
-      </Item1>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>

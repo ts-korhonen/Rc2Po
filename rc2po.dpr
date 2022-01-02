@@ -17,6 +17,47 @@ var
   EnUs, Lang, Dest: string;
   EnUsF, LangF, DestF: TStringList;
 
+procedure RebuildFilter(var Filter: string);
+var
+  I: integer;
+
+  Result, Temp, S: string;
+  Elements, Types: TArray<string>;
+begin
+  if pos('\0', Filter) = 0 then
+    exit;
+
+  Result := '';
+  Elements := Filter.DeQuotedString('"').Split(['\0']);
+
+  if length(Elements) > 0 then
+    for I := 0 to High(Elements) do
+      if Elements[I] = '' then
+        continue
+      else if not odd(I) then begin
+        if I <> 0 then
+          Result := Result + ';;';
+
+        Result := Result + Copy(Elements[I], 1, Elements[I].IndexOf('(') + 1);
+      end
+      else begin
+        Types := Elements[I].Split([';']);
+        Temp := '';
+        for S in Types do
+          if S = '*.*' then
+            Temp := Temp + '* '
+          else if LowerCase(S) = UpperCase(S) then
+            Temp := Temp + S + ' '
+          else
+            Temp := Temp + UpperCase(S) + ' ' + LowerCase(S) + ' ';
+
+        Result := Result + TrimRight(Temp) + ')';
+      end;
+
+  if Result <> '' then
+    Filter := Result.QuotedString('"');
+end;
+
 function Parse(const FileName: string): TStringList;
 var
   F: TextFile;
@@ -58,6 +99,7 @@ begin
         for I := 0 to Defines.Count - 1 do
           Line := Line.Replace(Defines.Names[I], Defines.ValueFromIndex[I], [rfReplaceAll]);
 
+        RebuildFilter(Line);
         Result.Add(Line);
       end;
     end;
