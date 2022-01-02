@@ -1,1 +1,2 @@
-for /f %%f in ('dir /b') do rc2po en-us.rc %%f
+del *.po /q
+for /f %%f in ('dir /b *.rc') do rc2po en-us.rc %%f
