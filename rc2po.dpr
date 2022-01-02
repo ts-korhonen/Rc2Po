@@ -32,7 +32,10 @@ begin
     while not Eof(F) do begin
       ReadLn(F, Line);
 
-      if pos('#define', Line) = 1 then
+      //if pos('#define', Line) = 1 then
+      //  continue;
+
+      if pos('#include', Line) = 1 then
         continue;
 
       S := Line.IndexOf('"');
