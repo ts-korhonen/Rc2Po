@@ -21,19 +21,30 @@ function Parse(const FileName: string): TStringList;
 var
   F: TextFile;
 
-  S, E: integer;
+  S, E, I: integer;
   Line: string;
+
+  Defines: TStringList;
 begin
   Result := TStringList.Create;
+  Defines := TStringList.Create;
 
   AssignFile(F, FileName);
   Reset(F);
   try
     while not Eof(F) do begin
       ReadLn(F, Line);
+      Line := Line.Replace(#9, ' ', [rfReplaceAll]);
 
-      //if pos('#define', Line) = 1 then
-      //  continue;
+      if (pos('#define', Line) = 1) then begin
+        S := Line.IndexOf(' ');
+        E := Line.IndexOf(' ', S + 1);
+
+        if (S <> -1) and (E <> -1) and (S <> E) then
+          Defines.Values[
+            '" ' + Trim(Line.Substring(S, E - S + 1)) + ' "'] :=
+            Trim(Line.Substring(E + 1)).DeQuotedString('"');
+      end;
 
       if pos('#include', Line) = 1 then
         continue;
@@ -41,11 +52,18 @@ begin
       S := Line.IndexOf('"');
       E := Line.LastIndexOf('"');
 
-      if (S <> -1) and (E <> -1) and (S <> E) then
-        Result.Add(Line.Substring(S, E - S + 1));
+      if (S <> -1) and (E <> -1) and (S <> E) then begin
+        Line := Line.Substring(S, E - S + 1);
+
+        for I := 0 to Defines.Count - 1 do
+          Line := Line.Replace(Defines.Names[I], Defines.ValueFromIndex[I], [rfReplaceAll]);
+
+        Result.Add(Line);
+      end;
     end;
   finally
     CloseFile(F);
+    Defines.Free;
   end;
 end;
 

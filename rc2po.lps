@@ -9,16 +9,39 @@
         <Filename Value="rc2po.dpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
+        <TopLine Value="44"/>
+        <CursorPos Y="58"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit0>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="1">
+      <Position1>
+        <Filename Value="rc2po.dpr"/>
+        <Caret Line="28" Column="55" TopLine="19"/>
+      </Position1>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0" ActiveMode=""/>
+      <Modes Count="1" ActiveMode="default">
+        <Mode0 Name="default">
+          <local>
+            <CommandLineParams Value="en-us.rc hu-hu.rc"/>
+          </local>
+        </Mode0>
+      </Modes>
     </RunParams>
   </ProjectSession>
-  <SkipCheckLCLInterfaces Value="True"/>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="rc2po.dpr"/>
+        <Line Value="58"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>
