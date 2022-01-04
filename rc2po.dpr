@@ -100,7 +100,12 @@ begin
           Line := Line.Replace(Defines.Names[I], Defines.ValueFromIndex[I], [rfReplaceAll]);
 
         RebuildFilter(Line);
-        Line := Line.Replace('""','\"');
+
+        if Line = '""' then
+          continue
+        else
+          Line := Line.Replace('""','\"');
+
         Result.Add(Line);
       end;
     end;
