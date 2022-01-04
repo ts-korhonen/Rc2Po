@@ -99,13 +99,11 @@ begin
         for I := 0 to Defines.Count - 1 do
           Line := Line.Replace(Defines.Names[I], Defines.ValueFromIndex[I], [rfReplaceAll]);
 
-        RebuildFilter(Line);
-
         if Line = '""' then
-          continue
-        else
-          Line := Line.Replace('""','\"');
+          continue;
 
+        RebuildFilter(Line);
+        Line := Line.Replace('""','\"');
         Result.Add(Line);
       end;
     end;
