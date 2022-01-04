@@ -103,7 +103,7 @@ begin
           continue;
 
         RebuildFilter(Line);
-        Line := Line.Replace('""','\"');
+        Line := Line.Replace('""','\"', [rfReplaceAll]);
         Result.Add(Line);
       end;
     end;
