@@ -17,18 +17,18 @@ var
   EnUs, Lang, Dest: string;
   EnUsF, LangF, DestF: TStringList;
 
-procedure RebuildFilter(var Filter: string);
+procedure RebuildFilter(var DeQuotedFilter: string);
 var
   I: integer;
 
   Result, Temp, S: string;
   Elements, Types: TArray<string>;
 begin
-  if pos('\0', Filter) = 0 then
+  if pos('\0', DeQuotedFilter) = 0 then
     exit;
 
   Result := '';
-  Elements := Filter.DeQuotedString('"').Split(['\0']);
+  Elements := DeQuotedFilter.Split(['\0']);
 
   if length(Elements) > 0 then
     for I := 0 to High(Elements) do
@@ -55,7 +55,7 @@ begin
       end;
 
   if Result <> '' then
-    Filter := Result.QuotedString('"');
+    DeQuotedFilter := Result;
 end;
 
 function Parse(const FileName: string): TStringList;
@@ -102,9 +102,16 @@ begin
         if Line = '""' then
           continue;
 
+        Line := Line.DeQuotedString('"');
+
+        //- Here you can do final changes to the parsed strings
+
         RebuildFilter(Line);
         Line := Line.Replace('""','\"', [rfReplaceAll]);
-        Result.Add(Line);
+
+        //- Until there.
+
+        Result.Add(Line.QuotedString('"'));
       end;
     end;
   finally
