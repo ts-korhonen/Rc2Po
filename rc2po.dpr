@@ -107,11 +107,11 @@ begin
         //- Here you can do final changes to the parsed strings
 
         RebuildFilter(Line);
-        Line := Line.Replace('""','\"', [rfReplaceAll]);
+        Line := Line.Replace('"','\"', [rfReplaceAll]);
 
         //- Until there.
 
-        Result.Add(Line.QuotedString('"'));
+        Result.Add('"' + Line + '"');
       end;
     end;
   finally
